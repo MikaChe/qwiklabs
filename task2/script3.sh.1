@@ -1,0 +1,44 @@
+gcloud compute health-checks create tcp http-health-check --check-interval=5 --timeout=5 --unhealthy-threshold=2 --healthy-threshold=2 --port-name=http --port=80
+
+gcloud compute backend-services create http-backend \
+  --global \
+  --health-checks=http-health-check\
+  --protocol=HTTP \
+  --port-name=http \
+  --connection-draining-timeout=60
+
+gcloud compute backend-services add-backend http-backend \
+  --instance-group=us-east1-mig \
+  --instance-group-region=us-east1 \
+  --balancing-mode=rate \
+  --max-rate-per-instance=50 \
+  --global \
+  --capacity-scaler=1.0
+
+gcloud compute backend-services add-backend http-backend \
+  --instance-group=europe-west1-mig \
+  --instance-group-region=europe-west1 \
+  --balancing-mode=utilization \
+  --max-rate-per-instance=80 \
+  --global \
+  --capacity-scaler=1.0
+
+gcloud compute url-maps create http-lb --default-service=http-backend
+
+gcloud compute target-http-proxies create http-lb-target-proxy --url-map=http-lb
+
+gcloud compute target-http-proxies create http-lb-target-proxy-2 --url-map=http-lb
+
+gcloud compute forwarding-rules create http-lb-forwarding-rule --global --ports=80 --target-http-proxy=http-lb-target-proxy
+
+gcloud compute forwarding-rules create http-lb-forwarding-rule-2 --global --ports=80 --ip-version=IPV6 --target-http-proxy=http-lb-target-proxy-2
+
+gcloud compute backend-services get-health http-backend --global
+
+export IP_ADDRESS=$(gcloud compute forwarding-rules describe http-lb-forwarding-rule --global --format json | jq -r ".IPAddress")
+echo $IP_ADDRESS
+
+curl -s -I http://$IP_ADDRESS/
+
+#CHECK3 - Load Balancer!
+echo "Script3.sh is finished - Load Balancer is installed!"
