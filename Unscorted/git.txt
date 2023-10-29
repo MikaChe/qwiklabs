@@ -51,3 +51,7 @@ git remote add -f GSP823 git@github.com:MikaChe/GSP823.git
 
 git remote add -f ggames git@github.com:MikaChe/ggames.git
 git merge ggames/main --allow-unrelated-histories
+
+
+git remote add -f test git@github.com:MikaChe/test.git
+git merge test/main --allow-unrelated-histories
