@@ -60,3 +60,5 @@ git merge test/main --allow-unrelated-histories
 git remote add -f GSP651 git@github.com:MikaChe/GSP651.git
 git merge GSP651/main --allow-unrelated-histories
 
+git remote add -f GAS-Start git@github.com:MikaChe/GAS-Start.git
+git merge GAS-Start/main --allow-unrelated-histories
