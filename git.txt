@@ -1,0 +1,47 @@
+Quick setup — if you’ve done this kind of thing before
+or	
+git@github.com:MikaChe/qwiklabs.git
+Get started by creating a new file or uploading an existing file. We recommend every repository include a README, LICENSE, and .gitignore.
+
+…or create a new repository on the command line
+echo "# qwiklabs" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:MikaChe/qwiklabs.git
+git push -u origin main
+…or push an existing repository from the command line
+git remote add origin git@github.com:MikaChe/qwiklabs.git
+git branch -M main
+git push -u origin main
+…or import code from another repository
+You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
+
+
+#####
+
+#check the SSH key in ~/.ssh folder. look for the SSH-key file (public) id_rsa.pub
+
+ssh-keygen -o -t rsa -C "ssh-keygen@mcnz.com"
+
+ssh-keygen -o -t rsa -C "mikhai.cherkas@gmail.com"
+
+###
+
+git remote add -f repo-a git@github.com:vaibhavmule/repo-a.git
+
+
+https://github.com/MikaChe/GSP050
+
+git@github.com:MikaChe/GSP050.git
+
+#1
+git remote add -f GSP050 git@github.com:MikaChe/GSP050.git
+
+
+#2
+git merge GSP050/master
+git merge GSP050/main --allow-unrelated-histories
+
+
